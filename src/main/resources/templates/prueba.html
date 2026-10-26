@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Medina Fragrances</title>
+    <meta name="description" content="Explora nuestra colección exclusiva de perfumes originales.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5.3.8 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    
+    <!-- Tu CSS Personalizado -->
+    <link rel="stylesheet" href="css/Styles.css">
+    
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar text-center py-2">
+    <small>ENVÍO GRATIS EN PEDIDOS MAYORES A S/. 350 - LIMA</small>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <span class="brand-name">MEDINA FRAGRANCES</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html">INICIO</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/catalogo">CATÁLOGO</a></li>
+          <li class="nav-item"><a class="nav-link" href="marcas.html">MARCAS</a></li>
+          <li class="nav-item"><a class="nav-link" href="decants.html">DECANTS</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">CONTACTO</a></li>
+        </ul>
+      </div>
+      <div class="navbar-nav flex-row gap-3 align-items-center">
+        <div class="user-menu">
+          <a class="nav-link px-2" href="/login"> <i class="bi bi-person"></i></a>
+        <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+        <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+          <i class="bi bi-bag"></i>
+          <span class="cart-counter position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem; display: none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="bg-light py-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-muted">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Catálogo</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="py-5">
+    <div class="container">
+      
+      <!-- Header -->
+      <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold mb-3">NUESTRO CATÁLOGO</h1>
+        <p class="text-muted">20 Productos disponibles</p>
+      </div>
+
+      <!-- Filtros -->
+      <div class="row g-3 mb-5">
+        <div class="col-md-3">
+          <select class="form-select">
+            <option selected>Todas las Marcas</option>
+            <option>Valentino</option>
+            <option>Chanel</option>
+            <option>Dior</option>
+            <option>Tom Ford</option>
+            <option>Azzaro</option>
+            <option>Khadlaj</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select class="form-select">
+            <option selected>Todas las Categorías</option>
+            <option>Para Él</option>
+            <option>Para Ella</option>
+            <option>Unisex</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select class="form-select">
+            <option selected>Rango de Precio</option>
+            <option>Menos de S/. 200</option>
+            <option>S/. 200 - S/. 500</option>
+            <option>Más de S/. 500</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-dark w-100">APLICAR FILTROS</button>
+        </div>
+      </div>
+
+      <!-- Grid de Productos -->
+      <div class="row">
+
+        <!-- Producto 1 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+              data-id="21" 
+              data-name="AFNAN 9 PM EAU DE PARFUM" 
+              data-price="280" 
+              data-image="img/9pm.webp"
+              data-description="Fragancia oriental amaderada para hombre">
+            <div class="product-image-container">
+              <span class="badge-sale">ON SALE 20%</span>
+              <img src="img/9pm.webp" alt="Afnan 9 PM" class="img-fluid">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">AFNAN</p>
+              <h5 class="product-title">AFNAN 9 PM EAU DE PARFUM</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.9)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 224.00</span>
+                <span class="original-price">S/. 280.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 2 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="2" 
+               data-name="AFNAN 9 PM REBEL EAU DE PARFUM UNISEX " 
+               data-price="320" 
+               data-image="img/9pm Rebel.webp"
+               data-description="Nafais Sharq Eau de Parfum">
+            <div class="product-image-container">
+              <span class="badge-sale">ON SALE 13%</span>
+              <img src="img/9pm Rebel.webp" alt="Khadlaj Nafais Sharq">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">AFNAN</p>
+              <h5 class="product-title">AFNAN 9 PM REBEL EAU DE PARFUM UNISEX </h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="rating-count">(4.3)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 278.40</span>
+                <span class="original-price">S/. 320.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 3 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="3" 
+               data-name="Amber Oud Aqua Dubai" 
+               data-price="580" 
+               data-image="img/Amber Oud Aqua Dubai.webp"
+               data-description="Club Couture Parfum">
+            <div class="product-image-container">
+              <span class="badge-sale">ON SALE 20%</span>
+              <img src="img/Amber Oud Aqua Dubai.webp" alt="Amber Oud Aqua Dubai">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Amber</p>
+              <h5 class="product-title">Amber Oud Aqua Dubai</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(5.0)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">FROM S/. 464.00</span>
+                <span class="original-price">S/. 580.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 4 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="4" 
+               data-name="Amethyst" 
+               data-price="650" 
+               data-image="img/Amethyst.webp"
+               data-description="Coco Mademoiselle">
+            <div class="product-image-container">
+              <img src="img/Amethyst.webp" alt="Amethyst">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Amethyst</p>
+              <h5 class="product-title">Amethyst</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.9)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 650.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 5 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="5" 
+               data-name="Asad Bourbon" 
+               data-price="720" 
+               data-image="img/Asad Bourbon.webp"
+               data-description="Sauvage Elixir">
+            <div class="product-image-container">
+              <span class="badge-sale">ON SALE 10%</span>
+              <img src="img/Asad Bourbon.webp" alt="Asad Bourbonr">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Asad Bourbon</p>
+              <h5 class="product-title">Asad Bourbon</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.7)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 648.00</span>
+                <span class="original-price">S/. 720.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 6 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="6" 
+               data-name="Asad by Lattafa" 
+               data-price="590" 
+               data-image="img/img/Asad by Lattafa.webp"
+               data-description="Black Orchid">
+            <div class="product-image-container">
+              <img src="img/Asad by Lattafa.webp" alt="Asad by Lattafa">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Asad by Lattafa</p>
+              <h5 class="product-title">Asad by Lattafa</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="rating-count">(4.5)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 590.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 7 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="7" 
+               data-name="Fakhar Black" 
+               data-price="480" 
+               data-image="img/Fakhar Black.webp"
+               data-description="Fakhar Black">
+            <div class="product-image-container">
+              <span class="badge-sale">ON SALE 12%</span>
+              <img src="img/Fakhar Black.webp" alt="Fakhar Black">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Fakhar Black</p>
+              <h5 class="product-title">Fakhar Black</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.6)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 422.40</span>
+                <span class="original-price">S/. 480.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 8 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="8" 
+               data-name="Fakhar Extrait (Gold)" 
+               data-price="520" 
+               data-image="img/Fakhar Extrait (Gold)"
+               data-description="Libre Eau de Parfum">
+            <div class="product-image-container">
+              <img src="img/Fakhar Extrait (Gold).webp" alt="YSL Libre">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Fakhar Extrait (Gold)</p>
+              <h5 class="product-title">Fakhar Extrait (Gold)</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.8)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 520.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 9 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="9" 
+               data-name="Honor And Glory" 
+               data-price="380" 
+               data-image="img/Honor And Glory.webp"
+               data-description="Honor And Glory">
+            <div class="product-image-container">
+              <span class="badge-sale">ON SALE 18%</span>
+              <img src="img/Honor And Glory.webp" alt="Honor And Glory">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Honor And Glory</p>
+              <h5 class="product-title">Honor And Glory</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="rating-count">(4.4)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 311.60</span>
+                <span class="original-price">S/. 380.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 10 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="10" 
+               data-name="Ishq Al Shuyukh" 
+               data-price="490" 
+               data-image="img/Ishq Al Shuyukh.webp"
+               data-description="Ishq Al Shuyukh">
+            <div class="product-image-container">
+              <img src="img/Ishq Al Shuyukh.webp" alt="Ishq Al Shuyukh">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Ishq Al Shuyukh</p>
+              <h5 class="product-title">Ishq Al ShuyukhM</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.7)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 490.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 11 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="11" 
+               data-name="khamrah dukhan" 
+               data-price="460" 
+               data-image="img/khamrah dukhan.webp"
+               data-description="khamrah dukhan">
+            <div class="product-image-container">
+              <span class="badge-sale">ON SALE 15%</span>
+              <img src="img/khamrah dukhan.webp" alt="khamrah dukhan">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">khamrah dukhan</p>
+              <h5 class="product-title">khamrah dukhan</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.9)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 391.00</span>
+                <span class="original-price">S/. 460.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 12 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="12" 
+               data-name="khamrah Qahwa" 
+               data-price="580" 
+               data-image="img/khamrah Qahwa.webp"
+               data-description="khamrah Qahwa">
+            <div class="product-image-container">
+              <img src="img/khamrah Qahwa.webp" alt="khamrah Qahwa">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">khamrah Qahwa</p>
+              <h5 class="product-title">khamrah Qahwa</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.8)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 580.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 13 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="13" 
+               data-name="khamrah" 
+               data-price="420" 
+               data-image="img/khamrah.webp"
+               data-description="khamrah">
+            <div class="product-image-container">
+              <span class="badge-sale">ON SALE 10%</span>
+              <img src="img/khamrah.webp" alt="khamrah">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">khamrah</p>
+              <h5 class="product-title">khamrah</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="rating-count">(4.5)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 378.00</span>
+                <span class="original-price">S/. 420.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 14 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="14" 
+               data-name="Mandarin Sky Elixir" 
+               data-price="340" 
+               data-image="img/Mandarin Sky Elixir.webp"
+               data-description="Bombshell">
+            <div class="product-image-container">
+              <img src="img/Mandarin Sky Elixir.webp" alt="Mandarin Sky Elixirl">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Mandarin Sky Elixir</p>
+              <h5 class="product-title">Mandarin Sky Elixir</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                <span class="rating-count">(4.2)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 340.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 15 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="15" 
+               data-name="Mandarin Sky" 
+               data-price="390" 
+               data-image="img/Mandarin Sky.webp"
+               data-description="1 Million">
+            <div class="product-image-container">
+              <span class="badge-sale">ON SALE 20%</span>
+              <img src="img/Mandarin Sky.webp" alt="Mandarin Sky">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Mandarin Sky</p>
+              <h5 class="product-title">Mandarin Sky</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.6)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 312.00</span>
+                <span class="original-price">S/. 390.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 16 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="16" 
+               data-name="Odyssey Artisto" 
+               data-price="360" 
+               data-image="img/Odyssey Artisto.webp"
+               data-description="Odyssey Artisto">
+            <div class="product-image-container">
+              <img src="img/Odyssey Artisto.webp" alt="Odyssey Artisto">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Odyssey Artisto</p>
+              <h5 class="product-title">Odyssey Artisto</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="rating-count">(4.4)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 360.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div> 
+        </div>
+
+        <!-- Producto 17 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="17" 
+               data-name="Oud For Glory" 
+               data-price="280" 
+               data-image="img/Oud For Glory.webp"
+               data-description="Oud For Glory">
+            <div class="product-image-container">
+              <span class="badge-sale">ON SALE 15%</span>
+              <img src="img/Oud For Glory.webp" alt="Oud For Glory">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Oud For Glory</p>
+              <h5 class="product-title">Oud For Glory</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                <span class="rating-count">(4.3)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 238.00</span>
+                <span class="original-price">S/. 280.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 18 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="18" 
+               data-name="Shaheen Gold" 
+               data-price="510" 
+               data-image="img/Shaheen Gold.webp"
+               data-description="Terre d'Hermès">
+            <div class="product-image-container">
+              <img src="img/Shaheen Gold.webp" alt="Shaheen Gold">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Shaheen Gold</p>
+              <h5 class="product-title">Shaheen Gold</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.7)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 510.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 19 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="19" 
+               data-name="Sublime" 
+               data-price="430" 
+               data-image="img/Sublime.webp"
+               data-description="Sublime">
+            <div class="product-image-container">
+              <span class="badge-sale">ON SALE 12%</span>
+              <img src="img/Sublime.webp" alt="Sublime">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Lataffa</p>
+              <h5 class="product-title">Sublime</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="rating-count">(4.5)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 378.40</span>
+                <span class="original-price">S/. 430.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 20 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="20" 
+               data-name="Vintage Radio" 
+               data-price="410" 
+               data-image="img/Vintage Radio.webp"
+               data-description="Daisy">
+            <div class="product-image-container">
+              <img src="img/Vintage Radio.webp" alt="Vintage Radio">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Vintage Radio</p>
+              <h5 class="product-title">Vintage Radio</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.6)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 410.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+                <!-- Producto 21 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="21" 
+               data-name="Xerjoff Erba Pura" 
+               data-price="410" 
+               data-image="img/Xerjoff Erba Pura.webp"
+               data-description="Daisy">
+            <div class="product-image-container">
+              <img src="img/Xerjoff Erba Pura.webp" alt="Xerjoff Erba Pura">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Xerjoff Erba Pura</p>
+              <h5 class="product-title">Xerjoff Erba Pura</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.6)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 410.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        
+                <!-- Producto 22 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="22" 
+               data-name="Valentino Uomo" 
+               data-price="410" 
+               data-image="img/Valentino Uomo.webp"
+               data-description="Daisy">
+            <div class="product-image-container">
+              <img src="img/Valentino Uomo.webp" alt="Marc Jacobs Daisy">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">Valentino</p>
+              <h5 class="product-title">Valentino Uomo</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.6)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 410.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+                        <!-- Producto 23 -->
+        <div class="col-lg-4 col-md-6 product-grid-item">
+          <div class="product-card h-100" 
+               data-id="23" 
+               data-name="CAROLINA HERRERA GOOD GIR" 
+               data-price="410" 
+               data-image="img/CAROLINA HERRERA GOOD GIRL.webp"
+               data-description="Daisy">
+            <div class="product-image-container">
+              <img src="img/CAROLINA HERRERA GOOD GIRL.webp" alt="CAROLINA HERRERA GOOD GIRL">
+            </div>
+            <div class="p-3">
+              <p class="brand-label">CAROLINA HERRERA</p>
+              <h5 class="product-title">CAROLINA HERRERA GOOD GIRL</h5>
+              <div class="rating-stars">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(4.6)</span>
+              </div>
+              <div class="price-container">
+                <span class="current-price">S/. 410.00</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+<footer class="luxury-footer">
+  <div class="container">
+    <div class="row">
+      
+      <!-- Columna 1: Marca y Descripción -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h5>MEDINA FRAGRANCES</h5>
+        <p>Curaduría exclusiva de perfumería original. Descubre el aroma perfecto que define tu esencia. Calidad y autenticidad garantizada en cada gota.</p>
+        <div class="social-icons mt-4">
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-tiktok"></i></a>
+          <a href="#"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- Columna 2: Enlaces Rápidos -->
+      <div class="col-lg-2 col-md-6 mb-4">
+        <h6>Explorar</h6>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="/catalogo">Catálogo</a></li>
+          <li><a href="decants.html">Decants</a></li>
+          <li><a href="marcas.html">Marcas</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Ayuda y Legal -->
+      <div class="col-lg-2 col-md-6 mb-4">
+        <h6>Ayuda</h6>
+        <ul>
+          <li><a href="contacto.html">Soporte</a></li>
+          <li><a href="privacidad.html">Política de Privacidad</a></li>
+          <li><a href="terminos.html">Términos y Condiciones</a></li>
+          <li><a href="#">Envíos y Devoluciones</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 4: Newsletter y Pagos -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h6>Newsletter</h6>
+        <p class="mb-3">Suscríbete para recibir ofertas exclusivas y novedades.</p>
+        <form>
+          <input type="email" class="newsletter-input" placeholder="Tu correo electrónico">
+          <button type="submit" class="btn-subscribe">Suscribirse</button>
+        </form>
+        
+        <div class="mt-4">
+          <h6 style="margin-bottom: 15px;">Pagos Seguros</h6>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge bg-light text-dark p-2">Visa</span>
+            <span class="badge bg-light text-dark p-2">Mastercard</span>
+            <span class="badge bg-light text-dark p-2">Yape</span>
+            <span class="badge bg-light text-dark p-2">Plin</span>
+            <span class="badge bg-light text-dark p-2">BCP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra de Copyright -->
+    <div class="row copyright-bar align-items-center">
+      <div class="col-md-6 text-center text-md-start">
+        &copy; 2026 Medina Fragrances. Todos los derechos reservados.
+      </div>
+      <div class="col-md-6 text-center text-md-end">
+        <i class="bi bi-shield-lock-fill me-1"></i> Compra 100% Segura y Encriptada
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <!-- OFFCANVAS DEL CARRITO -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title fw-bold" id="cartOffcanvasLabel">
+        TU CARRITO (<span class="cart-count-text">0</span>)
+      </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    
+    <div class="offcanvas-body d-flex flex-column p-0">
+      <div id="offcanvas-cart-items" class="flex-grow-1 overflow-auto p-3">
+        <div class="text-center py-5 text-muted">
+          <i class="bi bi-bag-x display-4 d-block mb-3"></i>
+          <p class="mb-0">Tu carrito está vacío</p>
+          <small>Agrega productos del catálogo</small>
+        </div>
+      </div>
+
+      <div class="border-top p-3 bg-light" id="offcanvas-cart-summary" style="display: none;">
+        <div class="mb-2">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="text-muted">Subtotal</span>
+            <span class="fw-bold" id="offcanvas-subtotal">S/. 0.00</span>
+          </div>
+          <div class="d-flex justify-content-between mb-1">
+            <span class="text-muted">Envío</span>
+            <span class="text-success fw-bold" id="offcanvas-shipping">GRATIS</span>
+          </div>
+          <small class="text-muted d-block mb-3" id="offcanvas-shipping-msg">
+            ¡Envío gratis en compras mayores a S/. 350!
+          </small>
+        </div>
+        
+        <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+          <span class="fw-bold fs-5">Total</span>
+          <span class="fw-bold fs-5 text-danger" id="offcanvas-total">S/. 0.00</span>
+        </div>
+        
+        <button class="btn btn-dark w-100 mb-2 py-3 fw-bold" onclick="proceedToCheckout()">
+          <i class="bi bi-lock me-2"></i>PROCEDER AL PAGO
+        </button>
+        
+        <a href="carrito.html" class="text-center d-block text-decoration-none small text-muted">
+          Ver carrito completo →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="main/main.js"></script>
+</body>
+</html>

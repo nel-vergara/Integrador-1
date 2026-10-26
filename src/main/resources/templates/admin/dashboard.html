@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Medina Fragrances</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/Styles.css}">
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+    <aside class="admin-sidebar">
+        <a th:href="@{/admin}" class="admin-brand">MEDINA</a>
+        <p>Panel de administrador</p>
+        <nav class="admin-nav">
+            <a href="#resumen"><i class="bi bi-grid-1x2"></i> Resumen</a>
+            <a href="#productos"><i class="bi bi-box-seam"></i> Productos</a>
+            <a href="#pedidos"><i class="bi bi-receipt"></i> Pedidos</a>
+            <a href="#clientes"><i class="bi bi-people"></i> Clientes</a>
+            <a href="#mensajes"><i class="bi bi-chat-dots"></i> Mensajes</a>
+            <a href="#configuracion"><i class="bi bi-gear"></i> Configuracion</a>
+        </nav>
+        <div class="admin-sidebar-footer">
+            <a th:href="@{/}" class="admin-ghost-link"><i class="bi bi-shop"></i> Ver tienda</a>
+            <a th:href="@{/cerrar-sesion}" class="admin-logout"><i class="bi bi-box-arrow-right"></i> Cerrar sesion</a>
+        </div>
+    </aside>
+
+    <main class="admin-main">
+        <header class="admin-topbar">
+            <div>
+                <span class="admin-kicker">Control total</span>
+                <h1>Gestion de Medina Fragrances</h1>
+            </div>
+            <div class="admin-user">
+                <span th:text="${admin.nombre}">Admin</span>
+                <small th:text="${admin.email}">admin@email.com</small>
+            </div>
+        </header>
+
+        <section id="resumen" class="admin-section">
+            <div class="admin-metrics">
+                <article class="admin-metric">
+                    <i class="bi bi-cash-coin"></i>
+                    <span>Ventas totales</span>
+                    <strong th:text="'S/. ' + ${#numbers.formatDecimal(ventasTotales, 1, 2)}">S/. 0.00</strong>
+                </article>
+                <article class="admin-metric">
+                    <i class="bi bi-receipt-cutoff"></i>
+                    <span>Pedidos</span>
+                    <strong th:text="${pedidos.size()}">0</strong>
+                </article>
+                <article class="admin-metric">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Clientes</span>
+                    <strong th:text="${clientes.size()}">0</strong>
+                </article>
+                <article class="admin-metric">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <span>Stock bajo</span>
+                    <strong th:text="${stockBajo}">0</strong>
+                </article>
+            </div>
+        </section>
+
+        <section id="productos" class="admin-section admin-card">
+            <div class="admin-section-head">
+                <div>
+                    <span class="admin-kicker">Inventario</span>
+                    <h2 th:text="${productoForm.id == null ? 'Agregar producto' : 'Editar producto'}">Agregar producto</h2>
+                </div>
+                <a th:href="@{/admin#productos}" class="admin-ghost-link" th:if="${productoForm.id != null}">Nuevo producto</a>
+            </div>
+
+            <form th:action="@{/admin/productos/guardar}" th:object="${productoForm}" method="post" class="admin-product-form">
+                <input type="hidden" th:field="*{id}">
+                <label>Nombre <input type="text" th:field="*{nombre}" required></label>
+                <label>Marca <input type="text" th:field="*{marca}" required></label>
+                <label>Precio <input type="number" step="0.01" min="0.01" th:field="*{precio}" required></label>
+                <label>Stock <input type="number" min="0" th:field="*{stock}" required></label>
+                <label>Categoria
+                    <select th:field="*{categoria}">
+                        <option value="Para Él">Para El</option>
+                        <option value="Para Ella">Para Ella</option>
+                        <option value="Unisex">Unisex</option>
+                    </select>
+                </label>
+                <label>Descuento <input type="text" th:field="*{descuentoLabel}" placeholder="ON SALE 20%"></label>
+                <label class="admin-field-wide">Imagen URL <input type="text" th:field="*{imageUrl}" placeholder="/img/Nombre.webp"></label>
+                <label class="admin-field-wide">Descripcion <textarea rows="3" th:field="*{descripcion}"></textarea></label>
+                <button type="submit" class="admin-primary-btn">
+                    <i class="bi bi-save"></i> Guardar producto
+                </button>
+            </form>
+
+            <div class="admin-table-wrap mt-4">
+                <table class="admin-table">
+                    <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Marca</th>
+                        <th>Categoria</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="producto : ${productos}">
+                        <td>
+                            <div class="admin-product-cell">
+                                <img th:src="@{${producto.imageUrl}}" th:alt="${producto.nombre}">
+                                <span th:text="${producto.nombre}">Producto</span>
+                            </div>
+                        </td>
+                        <td th:text="${producto.marca}">Marca</td>
+                        <td th:text="${producto.categoria}">Categoria</td>
+                        <td th:text="${producto.precioFormateado}">S/. 0.00</td>
+                        <td>
+                            <span class="admin-pill" th:classappend="${producto.stock <= 5} ? ' danger' : ''" th:text="${producto.stock}">0</span>
+                        </td>
+                        <td class="admin-actions">
+                            <a th:href="@{/admin(editarProducto=${producto.id})}" class="admin-icon-btn"><i class="bi bi-pencil"></i></a>
+                            <form th:action="@{/admin/productos/eliminar/{id}(id=${producto.id})}" method="post">
+                                <button type="submit" class="admin-icon-btn danger" onclick="return confirm('Eliminar producto?')"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="pedidos" class="admin-section admin-card">
+            <div class="admin-section-head">
+                <div>
+                    <span class="admin-kicker">Ventas y pedidos</span>
+                    <h2>Control de pedidos</h2>
+                </div>
+                <span class="admin-pill danger" th:text="${pedidosPendientes} + ' pendientes'">0 pendientes</span>
+            </div>
+
+            <form th:action="@{/admin/pedidos/crear}" method="post" class="admin-order-form">
+                <label>Cliente
+                    <select name="usuarioId" required>
+                        <option value="">Seleccionar cliente</option>
+                        <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre + ' - ' + cliente.email}">Cliente</option>
+                    </select>
+                </label>
+                <label>Producto
+                    <select name="productoId" required>
+                        <option value="">Seleccionar producto</option>
+                        <option th:each="producto : ${productos}" th:value="${producto.id}" th:text="${producto.nombre + ' | Stock: ' + producto.stock}">Producto</option>
+                    </select>
+                </label>
+                <label>Cantidad
+                    <input type="number" name="cantidad" min="1" value="1" required>
+                </label>
+                <button type="submit" class="admin-primary-btn"><i class="bi bi-plus-circle"></i> Crear pedido</button>
+            </form>
+
+            <div class="admin-table-wrap">
+                <table class="admin-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                        <th>Pago</th>
+                        <th>Entrega</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${pedidos.isEmpty()}">
+                        <td colspan="9" class="admin-empty">Todavia no hay pedidos registrados.</td>
+                    </tr>
+                    <tr th:each="pedido : ${pedidos}">
+                        <td th:text="'#' + ${pedido.id}">#1</td>
+                        <td th:text="${pedido.usuario.nombre}">Cliente</td>
+                        <td th:text="${pedido.producto.nombre}">Producto</td>
+                        <td th:text="${pedido.cantidad}">1</td>
+                        <td th:text="'S/. ' + ${#numbers.formatDecimal(pedido.total, 1, 2)}">S/. 0.00</td>
+                        <td>
+                            <span class="admin-pill" th:text="${pedido.metodoPago != null ? pedido.metodoPago : 'Manual'}">Pago</span>
+                        </td>
+                        <td>
+                            <strong class="d-block" th:text="${pedido.metodoEntrega != null ? pedido.metodoEntrega : 'No indicado'}">Delivery</strong>
+                            <small class="text-muted d-block" th:text="${pedido.telefonoContacto != null ? pedido.telefonoContacto : pedido.usuario.telefono}">999999999</small>
+                            <small class="text-muted d-block" th:text="${pedido.direccionEntrega != null ? pedido.direccionEntrega : pedido.usuario.direccion}">Direccion</small>
+                        </td>
+                        <td th:text="${pedido.fecha != null ? #temporals.format(pedido.fecha, 'dd/MM/yyyy HH:mm') : '-'}">-</td>
+                        <td>
+                            <form th:action="@{/admin/pedidos/{id}/estado(id=${pedido.id})}" method="post" class="admin-status-form">
+                                <select name="estado">
+                                    <option value="PENDIENTE" th:selected="${pedido.estado == 'PENDIENTE'}">Pendiente</option>
+                                    <option value="PAGADO" th:selected="${pedido.estado == 'PAGADO'}">Pagado</option>
+                                    <option value="ENVIADO" th:selected="${pedido.estado == 'ENVIADO'}">Enviado</option>
+                                    <option value="ENTREGADO" th:selected="${pedido.estado == 'ENTREGADO'}">Entregado</option>
+                                    <option value="CANCELADO" th:selected="${pedido.estado == 'CANCELADO'}">Cancelado</option>
+                                </select>
+                                <button type="submit"><i class="bi bi-check-lg"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="clientes" class="admin-section admin-card">
+            <div class="admin-section-head">
+                <div>
+                    <span class="admin-kicker">CRM</span>
+                    <h2>Clientes registrados</h2>
+                </div>
+            </div>
+            <div class="admin-table-wrap">
+                <table class="admin-table">
+                    <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                        <th>DNI</th>
+                        <th>Direccion</th>
+                        <th>Pedidos</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="cliente : ${clientes}">
+                        <td th:text="${cliente.nombre}">Cliente</td>
+                        <td th:text="${cliente.email}">email</td>
+                        <td th:text="${cliente.telefono}">999999999</td>
+                        <td th:text="${cliente.dni}">00000000</td>
+                        <td th:text="${cliente.direccion}">Direccion</td>
+                        <td><span class="admin-pill" th:text="${pedidosPorCliente[cliente.id] != null ? pedidosPorCliente[cliente.id] : 0}">0</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="mensajes" class="admin-section admin-card">
+            <div class="admin-section-head">
+                <div>
+                    <span class="admin-kicker">Atencion al cliente</span>
+                    <h2>Mensajes de contacto</h2>
+                </div>
+            </div>
+            <div class="admin-message-grid">
+                <article class="admin-message" th:each="mensaje : ${mensajes}">
+                    <span th:text="${mensaje.asunto}">Asunto</span>
+                    <h3 th:text="${mensaje.nombre}">Nombre</h3>
+                    <a th:href="'mailto:' + ${mensaje.email}" th:text="${mensaje.email}">correo</a>
+                    <p th:text="${mensaje.mensaje}">Mensaje</p>
+                    <small th:text="${mensaje.fecha != null ? #temporals.format(mensaje.fecha, 'dd/MM/yyyy HH:mm') : '-'}">Fecha</small>
+                </article>
+                <p class="admin-empty" th:if="${mensajes.isEmpty()}">No hay mensajes todavia.</p>
+            </div>
+        </section>
+
+        <section id="configuracion" class="admin-section admin-card">
+            <div class="admin-section-head">
+                <div>
+                    <span class="admin-kicker">Seguridad</span>
+                    <h2>Datos de administrador</h2>
+                </div>
+            </div>
+            <form th:action="@{/admin/perfil}" th:object="${admin}" method="post" class="admin-product-form">
+                <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{rol}">
+                <label>Nombre <input type="text" th:field="*{nombre}" required></label>
+                <label>Email <input type="email" th:field="*{email}" required></label>
+                <label>DNI <input type="text" th:field="*{dni}" maxlength="8" required></label>
+                <label>Telefono <input type="text" th:field="*{telefono}" maxlength="9" required></label>
+                <label class="admin-field-wide">Direccion <input type="text" th:field="*{direccion}" required></label>
+                <label class="admin-field-wide">Password <input type="text" th:field="*{password}" required></label>
+                <button type="submit" class="admin-primary-btn"><i class="bi bi-person-gear"></i> Actualizar administrador</button>
+            </form>
+        </section>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

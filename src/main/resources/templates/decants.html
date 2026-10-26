@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decants - Medina Fragrances</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/Styles.css}">
+
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar text-center py-2">
+    <small>ENVÍO GRATIS EN PEDIDOS MAYORES A S/. 350 - LIMA</small>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
+    <div class="container">
+      <a class="navbar-brand" th:href="@{/}">
+        <span class="brand-name">MEDINA FRAGRANCES</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" th:href="@{/}">INICIO</a></li>
+          <li class="nav-item"><a class="nav-link" href="/catalogo">CATÁLOGO</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/marcas}">MARCAS</a></li>
+          <li class="nav-item"><a class="nav-link active" th:href="@{/decants}">DECANTS</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/contacto}">CONTACTO</a></li>
+        </ul>
+      </div>
+      <div class="navbar-nav flex-row gap-3 align-items-center">
+        <!-- Usuario logueado -->
+        <div th:if="${nombreUsuario != null}" class="dropdown">
+          <a class="nav-link px-2 d-flex align-items-center gap-1 dropdown-toggle"
+             href="#" role="button" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle fs-5"></i>
+            <span class="small fw-semibold" th:text="${nombreUsuario}"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-0">
+            <li th:if="${esAdmin}"><a class="dropdown-item" th:href="@{/admin}">
+              <i class="bi bi-speedometer2 me-2"></i>Panel de control</a></li>
+            <li th:if="${esAdmin}"><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="/cerrar-sesion">
+              <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
+          </ul>
+        </div>
+        <!-- No logueado: ir a login con redirect a /decants -->
+        <a th:if="${nombreUsuario == null}" class="nav-link px-2" th:href="@{/login(redirect='/decants')}">
+          <i class="bi bi-person fs-5"></i>
+        </a>
+        <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+        <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+          <i class="bi bi-bag"></i>
+          <span class="cart-counter position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem; display: none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="bg-light py-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-muted">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Decants</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="decants-page py-5">
+    <div class="container">
+      <div class="catalog-heading text-center mb-5">
+        <span class="catalog-kicker">Prueba antes de elegir</span>
+        <h1 class="display-5 fw-bold mb-3">DECANTS Y MUESTRAS</h1>
+        <p class="text-muted lead">Elige tu tamaño (3ml, 5ml o 10ml) y prueba antes de invertir.</p>
+      </div>
+
+      <!-- Grid de Productos Decants -->
+      <div class="row g-4 decants-grid">
+        
+        <!-- Decant 1: Valentino -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <!-- NOTA: He añadido las clases y data-attributes necesarios para el JS -->
+          <div class="product-card decant-card" 
+               data-id="val-uomo" 
+               data-name="Valentino Uomo Intense" 
+               data-price="45" 
+               data-image="img/Valentino Uomo.webp"
+               data-description="Fragancia elegante y sofisticada para el hombre moderno.">
+            <div class="position-relative">
+              <span class="badge-sale">3ml - 10ml</span>
+              <img src="img/Valentino Uomo.webp" class="card-img-top" alt="Valentino">
+            </div>
+            <div class="product-info mt-3 p-3 text-center">
+              <p class="text-muted small text-uppercase mb-1">Valentino</p>
+              <h5 class="product-name mb-2">Valentino Uomo Intense</h5>
+              <p class="decant-price-label">Desde <strong>S/. 45</strong></p>
+              <!-- Botón que llama a la función del Modal -->
+              <button class="btn btn-outline-dark w-100 btn-view-product" 
+                      onclick="openDecantModal('val-uomo', 'Valentino Uomo Intense', 45, 'img/Valentino Uomo.webp', 'Fragancia elegante y sofisticada para el hombre moderno.')">
+                VER PRODUCTO
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decant 2: JPG -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card decant-card" 
+               data-id="jpg-male" 
+               data-name="JPG Le Male" 
+               data-price="20" 
+               data-image="img/JEAN PAUL GAULTIER LE MALE.webp"
+               data-description="Un clásico atemporal con notas de lavanda y vainilla.">
+            <div class="position-relative">
+              <span class="badge-sale">3ml - 10ml</span>
+              <img src="img/JEAN PAUL GAULTIER LE MALE.webp" class="card-img-top" alt="JPG">
+            </div>
+            <div class="product-info mt-3 p-3 text-center">
+              <p class="text-muted small text-uppercase mb-1">JEAN PAUL GAULTIER</p>
+              <h5 class="product-name mb-2">JEAN PAUL GAULTIER LE MALE</h5>
+              <p class="decant-price-label">Desde <strong>S/. 20</strong></p>
+              <button class="btn btn-outline-dark w-100 btn-view-product" 
+                      onclick="openDecantModal('jpg-male', 'JPG Le Male', 20, 'img/JEAN PAUL GAULTIER LE MALE.webp', 'Un clásico atemporal con notas de lavanda y vainilla.')">
+                VER PRODUCTO
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decant 3: 9PM -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card decant-card" 
+               data-id="9pm" 
+               data-name="Azzaro 9PM" 
+               data-price="60" 
+               data-image="img/9pm.webp"
+               data-description="Frescura masculina radical con notas de bergamota.">
+            <div class="position-relative">
+              <span class="badge-sale">3ml - 10ml</span>
+              <img src="img/9pm.webp" class="card-img-top" alt="9pm">
+            </div>
+            <div class="product-info mt-3 p-3 text-center">
+              <p class="text-muted small text-uppercase mb-1">AZZARO</p>
+              <h5 class="product-name mb-2">9pm</h5>
+              <p class="decant-price-label">Desde <strong>S/. 60</strong></p>
+              <button class="btn btn-outline-dark w-100 btn-view-product" 
+                      onclick="openDecantModal('9pm', 'Azzaro 9PM', 60, 'img/9pm.webp', 'Frescura masculina radical con notas de bergamota.')">
+                VER PRODUCTO
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decant 4: Khamrah -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card decant-card" 
+               data-id="khamrah" 
+               data-name="Lattafa Khamrah Dukhan" 
+               data-price="75" 
+               data-image="img/khamrah dukhan.webp"
+               data-description="Aroma dulce, especiado y adictivo.">
+            <div class="position-relative">
+              <span class="badge-sale">3ml - 10ml</span>
+              <img src="img/khamrah dukhan.webp" class="card-img-top" alt="Khamrah">
+            </div>
+            <div class="product-info mt-3 p-3 text-center">
+              <p class="text-muted small text-uppercase mb-1">LATTAFA</p>
+              <h5 class="product-name mb-2">Khamrah Dukhan</h5>
+              <p class="decant-price-label">Desde <strong>S/. 75</strong></p>
+              <button class="btn btn-outline-dark w-100 btn-view-product" 
+                      onclick="openDecantModal('khamrah', 'Lattafa Khamrah Dukhan', 75, 'img/khamrah dukhan.webp', 'Aroma dulce, especiado y adictivo.')">
+                VER PRODUCTO
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decant 5: Vintage Radio -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card decant-card" 
+               data-id="vintage" 
+               data-name="Vintage Radio" 
+               data-price="55" 
+               data-image="img/Vintage radio.webp"
+               data-description="Fragancia retro con un toque moderno.">
+            <div class="position-relative">
+              <span class="badge-sale">3ml - 10ml</span>
+              <img src="img/Vintage Radio.webp" class="card-img-top" alt="Vintage">
+            </div>
+            <div class="product-info mt-3 p-3 text-center">
+              <p class="text-muted small text-uppercase mb-1">MONTALE</p>
+              <h5 class="product-name mb-2">Vintage Radio</h5>
+              <p class="decant-price-label">Desde <strong>S/. 55</strong></p>
+              <button class="btn btn-outline-dark w-100 btn-view-product" 
+                      onclick="openDecantModal('vintage', 'Vintage Radio', 55, 'img/Vintage Radio.webp', 'Fragancia retro con un toque moderno.')">
+                VER PRODUCTO
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decant 6: Asad -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card decant-card" 
+               data-id="asad" 
+               data-name="Asad Bourbon" 
+               data-price="65" 
+               data-image="img/Asad Bourbon.webp"
+               data-description="Poderoso y masculino con notas de tabaco.">
+            <div class="position-relative">
+              <span class="badge-sale">3ml - 10ml</span>
+              <img src="img/Asad Bourbon.webp" class="card-img-top" alt="Asad">
+            </div>
+            <div class="product-info mt-3 p-3 text-center">
+              <p class="text-muted small text-uppercase mb-1">LATTAFA</p>
+              <h5 class="product-name mb-2">Asad Bourbon</h5>
+              <p class="decant-price-label">Desde <strong>S/. 65</strong></p>
+              <button class="btn btn-outline-dark w-100 btn-view-product" 
+                      onclick="openDecantModal('asad', 'Asad Bourbon', 65, 'img/Asad Bourbon.webp', 'Poderoso y masculino con notas de tabaco.')">
+                VER PRODUCTO
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decant 7: Amethyst -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card decant-card" 
+               data-id="amethyst" 
+               data-name="Amethyst" 
+               data-price="50" 
+               data-image="img/Amethyst.webp"
+               data-description="Elegancia y misterio en un frasco.">
+            <div class="position-relative">
+              <span class="badge-sale">3ml - 10ml</span>
+              <img src="img/Amethyst.webp" class="card-img-top" alt="Amethyst">
+            </div>
+            <div class="product-info mt-3 p-3 text-center">
+              <p class="text-muted small text-uppercase mb-1">MONTALE</p>
+              <h5 class="product-name mb-2">Amethyst</h5>
+              <p class="decant-price-label">Desde <strong>S/. 50</strong></p>
+              <button class="btn btn-outline-dark w-100 btn-view-product" 
+                      onclick="openDecantModal('amethyst', 'Amethyst', 50, 'img/Amethyst.webp', 'Elegancia y misterio en un frasco.')">
+                VER PRODUCTO
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decant 8: Shaheen -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card decant-card" 
+               data-id="shaheen" 
+               data-name="Shaheen Gold" 
+               data-price="60" 
+               data-image="img/Shaheen Gold.webp"
+               data-description="Un aroma dorado y sofisticado.">
+            <div class="position-relative">
+              <span class="badge-sale">3ml - 10ml</span>
+              <img src="img/Shaheen Gold.webp" class="card-img-top" alt="Shaheen">
+            </div>
+            <div class="product-info mt-3 p-3 text-center">
+              <p class="text-muted small text-uppercase mb-1">LATTAFA</p>
+              <h5 class="product-name mb-2">Shaheen Gold</h5>
+              <p class="decant-price-label">Desde <strong>S/. 60</strong></p>
+              <button class="btn btn-outline-dark w-100 btn-view-product" 
+                      onclick="openDecantModal('shaheen', 'Shaheen Gold', 60, 'img/Shaheen Gold.webp', 'Un aroma dorado y sofisticado.')">
+                VER PRODUCTO
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- =========================================
+       MODAL DE PRODUCTO (ESTRUCTURA NECESARIA)
+       ========================================= -->
+  <div class="modal fade" id="decantModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-body p-0">
+          <div class="row g-0">
+            <!-- Columna Imagen -->
+            <div class="col-md-5 bg-light d-flex align-items-center justify-content-center p-4">
+              <img id="modalImg" src="" class="img-fluid" style="max-height: 400px; object-fit: contain;" alt="Producto">
+            </div>
+            
+            <!-- Columna Info -->
+            <div class="col-md-7 p-5 d-flex flex-column justify-content-center">
+              <p class="text-muted text-uppercase small fw-bold mb-1" id="modalBrand">MARCA</p>
+              <h2 class="fw-bold mb-3" style="font-size: 1.5rem;" id="modalTitle">NOMBRE DEL PRODUCTO</h2>
+              
+              <p class="fs-4 fw-bold mb-4" id="modalPrice">S/. 0.00</p>
+              
+              <div class="mb-4">
+                <p class="small text-uppercase fw-bold mb-2">Tamaño (ml)</p>
+                <div class="size-selector d-flex gap-2">
+                  <button class="size-option" onclick="selectDecantSize(3)">3ml</button>
+                  <button class="size-option active" onclick="selectDecantSize(5)">5ml</button>
+                  <button class="size-option" onclick="selectDecantSize(10)">10ml</button>
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <p class="small text-muted lh-base" id="modalDesc">Descripción del producto...</p>
+              </div>
+              
+              <div class="d-grid gap-2">
+                <button class="btn btn-dark w-100 py-3" onclick="addToCartFromModal()">
+                  AGREGAR AL CARRITO
+                </button>
+                <button class="btn btn-outline-dark w-100 py-3" onclick="buyNowFromModal()">
+                  COMPRAR AHORA
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Offcanvas del Carrito -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title fw-bold" id="cartOffcanvasLabel">TU CARRITO (<span class="cart-count-text">0</span>)</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column p-0">
+      <div id="offcanvas-cart-items" class="flex-grow-1 overflow-auto p-3">
+        <div class="text-center py-5 text-muted">
+          <i class="bi bi-bag-x display-4 d-block mb-3"></i>
+          <p class="mb-0">Tu carrito está vacío</p>
+        </div>
+      </div>
+      <div class="border-top p-3 bg-light" id="offcanvas-cart-summary" style="display: none;">
+        <div class="d-flex justify-content-between mb-2"><span>Subtotal</span><span id="offcanvas-subtotal" class="fw-bold">S/. 0.00</span></div>
+        <div class="d-flex justify-content-between mb-2"><span>Envío</span><span id="offcanvas-shipping" class="fw-bold">S/. 20</span></div>
+        <hr>
+        <div class="d-flex justify-content-between mb-3"><span class="fw-bold fs-5">Total</span><span id="offcanvas-total" class="fw-bold fs-5 text-danger">S/. 0.00</span></div>
+        <button class="btn btn-dark w-100 mb-2" onclick="proceedToCheckout()">PROCEDER AL PAGO</button>
+        <a href="carrito.html" class="text-center d-block small text-muted">Ver carrito completo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="luxury-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h5>MEDINA FRAGRANCES</h5>
+          <p>Curaduría exclusiva de perfumería original. Descubre el aroma perfecto que define tu esencia. Calidad y autenticidad garantizada en cada gota.</p>
+          <div class="social-icons mt-4">
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-tiktok"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h6>Explorar</h6>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="/catalogo">Catálogo</a></li>
+            <li><a href="decants.html">Decants</a></li>
+            <li><a href="marcas.html">Marcas</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h6>Ayuda</h6>
+          <ul>
+            <li><a href="contacto.html">Soporte</a></li>
+            <li><a href="privacidad.html">Política de Privacidad</a></li>
+            <li><a href="terminos.html">Términos y Condiciones</a></li>
+            <li><a href="#">Envíos y Devoluciones</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h6>Newsletter</h6>
+          <p class="mb-3">Suscríbete para recibir ofertas exclusivas y novedades.</p>
+          <form>
+            <input type="email" class="newsletter-input" placeholder="Tu correo electrónico">
+            <button type="submit" class="btn-subscribe">Suscribirse</button>
+          </form>
+          <div class="mt-4">
+            <h6 style="margin-bottom: 15px;">Pagos Seguros</h6>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="payment-badge">Visa</span>
+              <span class="payment-badge">Mastercard</span>
+              <span class="payment-badge">Yape</span>
+              <span class="payment-badge">Plin</span>
+              <span class="payment-badge">BCP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row copyright-bar align-items-center">
+        <div class="col-md-6 text-center text-md-start">&copy; 2026 Medina Fragrances. Todos los derechos reservados.</div>
+        <div class="col-md-6 text-center text-md-end"><i class="bi bi-shield-lock-fill me-1"></i> Compra 100% Segura y Encriptada</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="main/main.js"></script>
+</body>
+</html>

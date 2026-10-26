@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Medina Fragrances</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/Styles.css}">
+</head>
+<body>
+
+  <div class="top-bar text-center py-2">
+    <small>ENVÍO GRATIS EN PEDIDOS MAYORES A S/. 350 - LIMA</small>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
+    <div class="container">
+      <a class="navbar-brand" th:href="@{/}"><span class="brand-name">MEDINA FRAGRANCES</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" th:href="@{/}">INICIO</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/catalogo}">CATÁLOGO</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/marcas}">MARCAS</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/decants}">DECANTS</a></li>
+          <li class="nav-item"><a class="nav-link active" th:href="@{/contacto}">CONTACTO</a></li>
+        </ul>
+      </div>
+      <div class="navbar-nav flex-row gap-3 align-items-center">
+        <!-- Usuario logueado -->
+        <div th:if="${nombreUsuario != null}" class="dropdown">
+          <a class="nav-link px-2 d-flex align-items-center gap-1 dropdown-toggle"
+             href="#" role="button" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle fs-5"></i>
+            <span class="small fw-semibold" th:text="${nombreUsuario}"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-0">
+            <li th:if="${esAdmin}"><a class="dropdown-item" th:href="@{/admin}">
+              <i class="bi bi-speedometer2 me-2"></i>Panel de control</a></li>
+            <li th:if="${esAdmin}"><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="/cerrar-sesion">
+              <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a></li>
+          </ul>
+        </div>
+        <!-- No logueado: ir a login con redirect a /contacto -->
+        <a th:if="${nombreUsuario == null}" class="nav-link px-2" th:href="@{/login(redirect='/contacto')}">
+          <i class="bi bi-person fs-5"></i>
+        </a>
+        <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+        <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+          <i class="bi bi-bag"></i>
+          <span class="cart-counter position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.6rem;display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="contacto-page">
+    <section class="contacto-hero">
+      <div class="container">
+        <div class="contacto-hero-grid">
+          <div class="contacto-hero-copy">
+            <span class="contacto-kicker">Asesoria personalizada</span>
+            <h1>
+              <span>Conversemos</span>
+              <span>sobre tu</span>
+              <span>proxima</span>
+              <span>fragancia.</span>
+            </h1>
+            <p>Cu&eacute;ntanos qu&eacute; aroma buscas, para qu&eacute; ocasi&oacute;n lo necesitas y qu&eacute; estilo prefieres. Te ayudamos a elegir una fragancia con mejor criterio y sin perder tiempo.</p>
+            <div class="contacto-quick-actions">
+              <a href="https://wa.me/51123456789" target="_blank" rel="noopener">
+                <i class="bi bi-whatsapp"></i>
+                WhatsApp
+              </a>
+              <a href="mailto:info@medinafragrances.com">
+                <i class="bi bi-envelope"></i>
+                Email
+              </a>
+            </div>
+          </div>
+
+          <aside class="contacto-response-panel" aria-label="Resumen de atencion">
+            <div class="contacto-response-top">
+              <span>Tiempo de respuesta</span>
+              <strong>24 h</strong>
+            </div>
+            <div class="contacto-response-list">
+              <div>
+                <i class="bi bi-patch-check"></i>
+                <span>Recomendaciones por estilo</span>
+              </div>
+              <div>
+                <i class="bi bi-truck"></i>
+                <span>Envios en Lima y provincias</span>
+              </div>
+              <div>
+                <i class="bi bi-bag-check"></i>
+                <span>Compras y disponibilidad</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="contacto-workspace">
+      <div class="container">
+        <div th:if="${param.enviado}" class="contacto-success">
+          <i class="bi bi-check-circle-fill"></i>
+          <span>Mensaje enviado correctamente. Te responderemos pronto.</span>
+        </div>
+
+        <div class="contacto-layout">
+          <section class="contacto-form-panel">
+            <div class="contacto-panel-head">
+              <span>Contacto directo</span>
+              <h2>Envianos un mensaje</h2>
+              <p>Completa los datos y agrega el mayor detalle posible para responderte con una recomendacion precisa.</p>
+            </div>
+
+            <form th:action="@{/contacto/enviar}" th:object="${contacto}" method="post" class="contacto-form">
+              <div class="contacto-field">
+                <label for="nombre">Nombre</label>
+                <div class="contacto-input-wrap">
+                  <i class="bi bi-person"></i>
+                  <input id="nombre" type="text" th:field="*{nombre}" placeholder="Tu nombre completo">
+                </div>
+                <div class="contacto-error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+              </div>
+
+              <div class="contacto-field">
+                <label for="email">Correo electronico</label>
+                <div class="contacto-input-wrap">
+                  <i class="bi bi-at"></i>
+                  <input id="email" type="email" th:field="*{email}" placeholder="tucorreo@ejemplo.com">
+                </div>
+                <div class="contacto-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+              </div>
+
+              <div class="contacto-field">
+                <label for="asunto">Asunto</label>
+                <div class="contacto-input-wrap">
+                  <i class="bi bi-chat-left-text"></i>
+                  <input id="asunto" type="text" th:field="*{asunto}" placeholder="Consulta, compra, envio o recomendacion">
+                </div>
+                <div class="contacto-error" th:if="${#fields.hasErrors('asunto')}" th:errors="*{asunto}"></div>
+              </div>
+
+              <div class="contacto-field">
+                <label for="mensaje">Mensaje</label>
+                <div class="contacto-input-wrap contacto-textarea-wrap">
+                  <i class="bi bi-pencil"></i>
+                  <textarea id="mensaje" th:field="*{mensaje}" rows="6" placeholder="Escribe tu mensaje aqui..."></textarea>
+                </div>
+                <div class="contacto-error" th:if="${#fields.hasErrors('mensaje')}" th:errors="*{mensaje}"></div>
+              </div>
+
+              <button type="submit" class="contacto-submit">
+                Enviar mensaje
+                <i class="bi bi-arrow-right"></i>
+              </button>
+            </form>
+          </section>
+
+          <aside class="contacto-side">
+            <section class="contacto-side-card contacto-info-card">
+              <div class="contacto-side-head">
+                <span>Canales oficiales</span>
+                <h2>Informacion de contacto</h2>
+              </div>
+              <a href="tel:+51123456789" class="contacto-info-item">
+                <i class="bi bi-telephone"></i>
+                <span>
+                  <strong>Telefono</strong>
+                  +51 123 456 789
+                </span>
+              </a>
+              <a href="mailto:info@medinafragrances.com" class="contacto-info-item">
+                <i class="bi bi-envelope"></i>
+                <span>
+                  <strong>Email</strong>
+                  info@medinafragrances.com
+                </span>
+              </a>
+              <a href="https://maps.google.com/?q=Av.%20Larco%20123%20Miraflores%20Lima%20Peru" target="_blank" rel="noopener" class="contacto-info-item">
+                <i class="bi bi-geo-alt"></i>
+                <span>
+                  <strong>Direccion</strong>
+                  Av. Larco 123, Miraflores, Lima, Peru
+                </span>
+              </a>
+            </section>
+
+            <section class="contacto-side-card">
+              <div class="contacto-side-head">
+                <span>Disponibilidad</span>
+                <h2>Horario de atencion</h2>
+              </div>
+              <div class="contacto-hours-grid">
+                <div>
+                  <strong>Lunes a Viernes</strong>
+                  <span>10:00 AM - 8:00 PM</span>
+                </div>
+                <div>
+                  <strong>Sabados</strong>
+                  <span>10:00 AM - 6:00 PM</span>
+                </div>
+              </div>
+              <p class="contacto-closed">Domingos: Cerrado</p>
+            </section>
+
+            <section class="contacto-side-card">
+              <div class="contacto-side-head">
+                <span>Comunidad</span>
+                <h2>Siguenos</h2>
+              </div>
+              <div class="contacto-social-grid">
+                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" aria-label="X"><i class="bi bi-twitter-x"></i></a>
+                <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="luxury-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h5>MEDINA FRAGRANCES</h5>
+          <p>Curaduría exclusiva de perfumería original. Descubre el aroma perfecto que define tu esencia. Calidad y autenticidad garantizada en cada gota.</p>
+          <div class="social-icons mt-4">
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-tiktok"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h6>Explorar</h6>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="/catalogo">Catálogo</a></li>
+            <li><a href="decants.html">Decants</a></li>
+            <li><a href="marcas.html">Marcas</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h6>Ayuda</h6>
+          <ul>
+            <li><a href="contacto.html">Soporte</a></li>
+            <li><a href="privacidad.html">Política de Privacidad</a></li>
+            <li><a href="terminos.html">Términos y Condiciones</a></li>
+            <li><a href="#">Envíos y Devoluciones</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h6>Newsletter</h6>
+          <p class="mb-3">Suscríbete para recibir ofertas exclusivas y novedades.</p>
+          <form>
+            <input type="email" class="newsletter-input" placeholder="Tu correo electrónico">
+            <button type="submit" class="btn-subscribe">Suscribirse</button>
+          </form>
+          <div class="mt-4">
+            <h6 style="margin-bottom: 15px;">Pagos Seguros</h6>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="payment-badge">Visa</span>
+              <span class="payment-badge">Mastercard</span>
+              <span class="payment-badge">Yape</span>
+              <span class="payment-badge">Plin</span>
+              <span class="payment-badge">BCP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row copyright-bar align-items-center">
+        <div class="col-md-6 text-center text-md-start">&copy; 2026 Medina Fragrances. Todos los derechos reservados.</div>
+        <div class="col-md-6 text-center text-md-end"><i class="bi bi-shield-lock-fill me-1"></i> Compra 100% Segura y Encriptada</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Carrito lateral (Offcanvas) -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title fw-bold" id="cartOffcanvasLabel">
+        TU CARRITO (<span class="cart-count-text">0</span>)
+      </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column p-0">
+      <div id="offcanvas-cart-items" class="flex-grow-1 overflow-auto p-3">
+        <div class="text-center py-5 text-muted">
+          <i class="bi bi-bag-x display-4 d-block mb-3"></i>
+          <p class="mb-0">Tu carrito está vacío</p>
+          <small>Agrega productos del catálogo</small>
+        </div>
+      </div>
+      <div class="border-top p-3 bg-light" id="offcanvas-cart-summary" style="display: none;">
+        <div class="mb-2">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="text-muted">Subtotal</span>
+            <span class="fw-bold" id="offcanvas-subtotal">S/. 0.00</span>
+          </div>
+          <div class="d-flex justify-content-between mb-1">
+            <span class="text-muted">Envío</span>
+            <span class="text-success fw-bold" id="offcanvas-shipping">GRATIS</span>
+          </div>
+          <small class="text-muted d-block mb-3" id="offcanvas-shipping-msg">
+            ¡Envío gratis en compras mayores a S/. 350!
+          </small>
+        </div>
+        <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+          <span class="fw-bold fs-5">Total</span>
+          <span class="fw-bold fs-5 text-danger" id="offcanvas-total">S/. 0.00</span>
+        </div>
+        <button class="btn btn-dark w-100 mb-2 py-3 fw-bold" onclick="proceedToCheckout()">
+          <i class="bi bi-lock me-2"></i>PROCEDER AL PAGO
+        </button>
+        <a href="/carrito" class="text-center d-block text-decoration-none small text-muted">
+          Ver carrito completo →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script th:src="@{/main/main.js}"></script>
+</body>
+</html>

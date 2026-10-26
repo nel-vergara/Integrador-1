@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido confirmado - Medina Fragrances</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/Styles.css}">
+</head>
+<body class="checkout-body">
+<main class="checkout-success-shell">
+    <section class="checkout-success-card">
+        <div class="checkout-success-icon"><i class="bi bi-check2"></i></div>
+        <span>Pedido registrado</span>
+        <h1>Gracias por comprar en Medina Fragrances</h1>
+        <p>Tu pedido ya fue enviado al panel de administrador para gestion de pago, preparacion y entrega.</p>
+
+        <div class="checkout-success-summary">
+            <div>
+                <small>Total productos</small>
+                <strong th:text="'S/. ' + ${#numbers.formatDecimal(totalCompra, 1, 2)}">S/. 0.00</strong>
+            </div>
+            <div>
+                <small>Pago</small>
+                <strong th:text="${metodoPago}">Yape / Plin</strong>
+            </div>
+            <div>
+                <small>Entrega</small>
+                <strong th:text="${metodoEntrega}">Delivery</strong>
+            </div>
+        </div>
+
+        <div class="checkout-success-orders">
+            <article th:each="pedido : ${pedidos}">
+                <span th:text="'Pedido #' + ${pedido.id}">Pedido #1</span>
+                <strong th:text="${pedido.producto.nombre}">Producto</strong>
+                <small th:text="${pedido.cantidad} + ' unidad(es) - ' + ${pedido.estado}">1 unidad - PENDIENTE</small>
+            </article>
+        </div>
+
+        <div class="checkout-success-actions">
+            <a th:href="@{/catalogo}" class="checkout-outline-btn">Seguir comprando</a>
+            <a th:href="@{/}" class="checkout-submit">Volver a la tienda</a>
+        </div>
+    </section>
+</main>
+
+<script>
+  localStorage.removeItem('medinaCart');
+  sessionStorage.removeItem('medinaCheckoutCompleted');
+</script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcas - Medina Fragrances</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/Styles.css}">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar text-center py-2">
+    <small>ENVÃO GRATIS EN PEDIDOS MAYORES A S/. 350 - LIMA</small>
+  </div>
+
+  <!-- Navbar con Carrito -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
+    <div class="container">
+      <a class="navbar-brand" th:href="@{/}">
+        <span class="brand-name">MEDINA FRAGRANCES</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" th:href="@{/}">INICIO</a></li>
+          <li class="nav-item"><a class="nav-link" href="/catalogo">CATÃLOGO</a></li>
+          <li class="nav-item"><a class="nav-link active" th:href="@{/marcas}">MARCAS</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/decants}">DECANTS</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/contacto}">CONTACTO</a></li>
+        </ul>
+      </div>
+      <div class="navbar-nav flex-row gap-3 align-items-center">
+        <!-- Usuario logueado -->
+        <div th:if="${nombreUsuario != null}" class="dropdown">
+          <a class="nav-link px-2 d-flex align-items-center gap-1 dropdown-toggle"
+             href="#" role="button" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle fs-5"></i>
+            <span class="small fw-semibold" th:text="${nombreUsuario}"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-0">
+            <li th:if="${esAdmin}"><a class="dropdown-item" th:href="@{/admin}">
+              <i class="bi bi-speedometer2 me-2"></i>Panel de control</a></li>
+            <li th:if="${esAdmin}"><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="/cerrar-sesion">
+              <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesiÃ³n</a></li>
+          </ul>
+        </div>
+        <!-- No logueado: ir a login con redirect a /marcas -->
+        <a th:if="${nombreUsuario == null}" class="nav-link px-2" th:href="@{/login(redirect='/marcas')}">
+          <i class="bi bi-person fs-5"></i>
+        </a>
+        <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+        <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+          <i class="bi bi-bag"></i>
+          <span class="cart-counter position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem; display: none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="bg-light py-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-muted">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Marcas</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="marcas-page">
+    <section class="marcas-hero">
+      <div class="container">
+        <div class="marcas-hero-grid">
+          <div class="marcas-hero-copy">
+            <span class="marcas-kicker">Curaduria internacional</span>
+            <h1>Casas iconicas para una firma personal inolvidable.</h1>
+            <p>Seleccionamos marcas con identidad, historia y presencia para que encuentres aromas originales con caracter, elegancia y proyeccion.</p>
+            <div class="marcas-hero-actions">
+              <a href="/catalogo" class="marcas-primary-btn"><i class="bi bi-grid-3x3-gap"></i> Explorar catalogo</a>
+              <a href="/decants" class="marcas-secondary-btn"><i class="bi bi-droplet"></i> Probar decants</a>
+            </div>
+          </div>
+
+          <div class="marcas-hero-panel" aria-label="Resumen de marcas Medina">
+            <div class="marcas-panel-top">
+              <span>MEDINA EDIT</span>
+              <strong>Luxury selection</strong>
+            </div>
+            <div class="marcas-panel-logos">
+              <img th:src="@{/img/LOGO CHANEL.webp}" alt="CHANEL">
+              <img th:src="@{/img/LOGO DIOR.jpg}" alt="DIOR">
+              <img th:src="@{/img/LOGO TOM FORD.webp}" alt="TOM FORD">
+            </div>
+            <div class="marcas-panel-note">
+              <i class="bi bi-shield-check"></i>
+              <span>Fragancias originales, seleccionadas por perfil olfativo y ocasion.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="marcas-metrics">
+          <article><strong>6</strong><span>casas destacadas</span></article>
+          <article><strong>100%</strong><span>seleccion original</span></article>
+          <article><strong>24h</strong><span>asesoria de compra</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="marcas-collection">
+      <div class="container">
+        <div class="marcas-section-head">
+          <span>Explora por identidad</span>
+          <h2>Marcas disponibles</h2>
+          <p>Elige una casa perfumista segun el estilo que quieres proyectar.</p>
+        </div>
+
+        <div class="marcas-grid">
+          <article class="marcas-card marcas-card-featured">
+            <div class="marcas-logo-stage"><img th:src="@{/img/LOGO VALENTINO.jpg}" alt="VALENTINO"></div>
+            <div class="marcas-card-body">
+              <span class="marcas-card-tag">Elegancia italiana</span>
+              <h3>VALENTINO</h3>
+              <p>Fragancias pulidas, sensuales y sofisticadas para presencia nocturna, eventos y ocasiones especiales.</p>
+              <div class="marcas-notes"><span>elegante</span><span>romantico</span><span>intenso</span></div>
+              <a href="/catalogo?buscar=Valentino" class="marcas-card-link">Ver productos <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </article>
+
+          <article class="marcas-card">
+            <div class="marcas-logo-stage"><img th:src="@{/img/LOGO CHANEL.webp}" alt="CHANEL"></div>
+            <div class="marcas-card-body">
+              <span class="marcas-card-tag">Icono atemporal</span>
+              <h3>CHANEL</h3>
+              <p>Composiciones refinadas con una lectura limpia, elegante y reconocible desde la primera aplicacion.</p>
+              <div class="marcas-notes"><span>clasico</span><span>limpio</span><span>lujoso</span></div>
+              <a href="/catalogo?buscar=Chanel" class="marcas-card-link">Ver productos <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </article>
+
+          <article class="marcas-card">
+            <div class="marcas-logo-stage"><img th:src="@{/img/LOGO DIOR.jpg}" alt="DIOR"></div>
+            <div class="marcas-card-body">
+              <span class="marcas-card-tag">Lujo moderno</span>
+              <h3>DIOR</h3>
+              <p>Aromas versatiles, luminosos y refinados para elevar el dia a dia sin perder distincion.</p>
+              <div class="marcas-notes"><span>fresco</span><span>premium</span><span>versatil</span></div>
+              <a href="/catalogo?buscar=Dior" class="marcas-card-link">Ver productos <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </article>
+
+          <article class="marcas-card">
+            <div class="marcas-logo-stage"><img th:src="@{/img/LOGO GUCCI.jpg}" alt="GUCCI"></div>
+            <div class="marcas-card-body">
+              <span class="marcas-card-tag">Audacia italiana</span>
+              <h3>GUCCI</h3>
+              <p>Perfiles expresivos con un caracter contemporaneo, ideal para quienes buscan diferenciarse.</p>
+              <div class="marcas-notes"><span>atrevido</span><span>moderno</span><span>urbano</span></div>
+              <a href="/catalogo?buscar=Gucci" class="marcas-card-link">Ver productos <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </article>
+
+          <article class="marcas-card marcas-card-dark">
+            <div class="marcas-logo-stage"><img th:src="@{/img/LOGO TOM FORD.webp}" alt="TOM FORD"></div>
+            <div class="marcas-card-body">
+              <span class="marcas-card-tag">Firma intensa</span>
+              <h3>TOM FORD</h3>
+              <p>Aromas densos, magneticos y sofisticados para clientes que prefieren una estela memorable.</p>
+              <div class="marcas-notes"><span>seductor</span><span>profundo</span><span>exclusivo</span></div>
+              <a href="/catalogo?buscar=Tom Ford" class="marcas-card-link">Ver productos <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </article>
+
+          <article class="marcas-card">
+            <div class="marcas-logo-stage"><img th:src="@{/img/LOGO YVES SAINT LAURENT.jpg}" alt="YVES SAINT LAURENT"></div>
+            <div class="marcas-card-body">
+              <span class="marcas-card-tag">Elegancia parisina</span>
+              <h3>YVES SAINT LAURENT</h3>
+              <p>Fragancias modernas con equilibrio entre sofisticacion, sensualidad y actitud cosmopolita.</p>
+              <div class="marcas-notes"><span>chic</span><span>nocturno</span><span>actual</span></div>
+              <a href="/catalogo?buscar=Yves Saint Laurent" class="marcas-card-link">Ver productos <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- Offcanvas del Carrito -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title fw-bold" id="cartOffcanvasLabel">
+        TU CARRITO (<span class="cart-count-text">0</span>)
+      </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    
+    <div class="offcanvas-body d-flex flex-column p-0">
+      <div id="offcanvas-cart-items" class="flex-grow-1 overflow-auto p-3">
+        <div class="text-center py-5 text-muted">
+          <i class="bi bi-bag-x display-4 d-block mb-3"></i>
+          <p class="mb-0">Tu carrito estÃ¡ vacÃ­o</p>
+          <small>Agrega productos del catÃ¡logo</small>
+        </div>
+      </div>
+
+      <div class="border-top p-3 bg-light" id="offcanvas-cart-summary" style="display: none;">
+        <div class="mb-2">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="text-muted">Subtotal</span>
+            <span class="fw-bold" id="offcanvas-subtotal">S/. 0.00</span>
+          </div>
+          <div class="d-flex justify-content-between mb-1">
+            <span class="text-muted">EnvÃ­o</span>
+            <span class="text-success fw-bold" id="offcanvas-shipping">GRATIS</span>
+          </div>
+          <small class="text-muted d-block mb-3" id="offcanvas-shipping-msg">
+            Â¡EnvÃ­o gratis en compras mayores a S/. 350!
+          </small>
+        </div>
+        
+        <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+          <span class="fw-bold fs-5">Total</span>
+          <span class="fw-bold fs-5 text-danger" id="offcanvas-total">S/. 0.00</span>
+        </div>
+        
+        <button class="btn btn-dark w-100 mb-2 py-3 fw-bold" onclick="proceedToCheckout()">
+          <i class="bi bi-lock me-2"></i>PROCEDER AL PAGO
+        </button>
+        
+        <a href="carrito.html" class="text-center d-block text-decoration-none small text-muted">
+          Ver carrito completo â†’
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="luxury-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h5>MEDINA FRAGRANCES</h5>
+          <p>CuradurÃ­a exclusiva de perfumerÃ­a original. Descubre el aroma perfecto que define tu esencia. Calidad y autenticidad garantizada en cada gota.</p>
+          <div class="social-icons mt-4">
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-tiktok"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h6>Explorar</h6>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="/catalogo">CatÃ¡logo</a></li>
+            <li><a href="decants.html">Decants</a></li>
+            <li><a href="marcas.html">Marcas</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h6>Ayuda</h6>
+          <ul>
+            <li><a href="contacto.html">Soporte</a></li>
+            <li><a href="privacidad.html">PolÃ­tica de Privacidad</a></li>
+            <li><a href="terminos.html">TÃ©rminos y Condiciones</a></li>
+            <li><a href="#">EnvÃ­os y Devoluciones</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h6>Newsletter</h6>
+          <p class="mb-3">SuscrÃ­bete para recibir ofertas exclusivas y novedades.</p>
+          <form>
+            <input type="email" class="newsletter-input" placeholder="Tu correo electrÃ³nico">
+            <button type="submit" class="btn-subscribe">Suscribirse</button>
+          </form>
+          <div class="mt-4">
+            <h6 style="margin-bottom: 15px;">Pagos Seguros</h6>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="payment-badge">Visa</span>
+              <span class="payment-badge">Mastercard</span>
+              <span class="payment-badge">Yape</span>
+              <span class="payment-badge">Plin</span>
+              <span class="payment-badge">BCP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row copyright-bar align-items-center">
+        <div class="col-md-6 text-center text-md-start">&copy; 2026 Medina Fragrances. Todos los derechos reservados.</div>
+        <div class="col-md-6 text-center text-md-end"><i class="bi bi-shield-lock-fill me-1"></i> Compra 100% Segura y Encriptada</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="main/main.js"></script>
+</body>
+</html>

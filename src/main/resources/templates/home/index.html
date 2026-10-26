@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medina Fragrances - Inicio</title>
+    <meta name="description" content="Curaduría exclusiva de perfumería original. Descubre fragancias premium, decants y las mejores marcas en Medina Fragrances.">
+    <meta name="keywords" content="perfumes, fragancias, decants, marcas premium, Medina Fragrances">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💧</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/Styles.css">
+    
+</head>
+<body id="top">
+
+  <!-- Top Bar -->
+  <div class="top-bar text-center py-2">
+    <small>ENVÍO GRATIS EN PEDIDOS MAYORES A S/. 350 - LIMA | 100% AUTÉNTICO</small>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <span class="brand-name">MEDINA FRAGRANCES</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link active" href="index.html">INICIO</a></li>
+          <li class="nav-item"><a class="nav-link" href="/catalogo">CATÁLOGO</a></li>
+          <li class="nav-item"><a class="nav-link" href="marcas.html">MARCAS</a></li>
+          <li class="nav-item"><a class="nav-link" href="decants.html">DECANTS</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">CONTACTO</a></li>
+        </ul>
+      </div>
+      <div class="navbar-nav flex-row gap-3 align-items-center">
+        <!-- Usuario: si hay sesion muestra nombre + dropdown, si no muestra icono login -->
+        <div class="user-menu" xmlns:th="http://www.thymeleaf.org">
+
+          <!-- Logueado: dropdown con nombre y cerrar sesion -->
+          <div th:if="${nombreUsuario != null}" class="dropdown">
+            <a class="nav-link px-2 d-flex align-items-center gap-1 dropdown-toggle"
+               href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle fs-5"></i>
+              <span class="small fw-semibold" th:text="${nombreUsuario}"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-0">
+              <li th:if="${esAdmin}">
+                <a class="dropdown-item" th:href="@{/admin}">
+                  <i class="bi bi-speedometer2 me-2"></i>Panel de control
+                </a>
+              </li>
+              <li th:if="${esAdmin}"><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item text-danger" href="/cerrar-sesion">
+                  <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- No logueado: icono que va al login -->
+          <a th:if="${nombreUsuario == null}" class="nav-link px-2" href="/login">
+            <i class="bi bi-person fs-5"></i>
+          </a>
+
+        </div>
+        <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+        <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+          <i class="bi bi-bag"></i>
+          <span class="cart-counter position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem; display: none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- =========================================
+       HERO SECTION
+       ========================================= -->
+  <section class="hero-section text-center text-white">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge">Colección 2026</span>
+        <h1 class="hero-title">MEDINA FRAGRANCES<br><span style="font-weight: 300; font-style: italic;">Exclusive Collection</span></h1>
+        <p class="hero-subtitle">Descubre nuestra curaduría exclusiva de perfumería original. Prueba antes de comprar y encuentra el aroma perfecto para ti.</p>
+        <div class="hero-buttons d-flex flex-column flex-sm-row gap-3 justify-content-center">
+          <a href="/catalogo" class="btn btn-hero-primary">EXPLORAR CATÁLOGO</a>
+          <a href="decants.html" class="btn btn-hero-secondary">PROBAR DECANTS</a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <a href="#features"><i class="bi bi-chevron-double-down"></i></a>
+    </div>
+  </section>
+
+  <!-- =========================================
+       CARACTERÍSTICAS / FEATURES
+       ========================================= -->
+  <section class="py-5 border-bottom" id="features">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="feature-box">
+            <i class="bi bi-shield-check"></i>
+            <h5>100% Auténtico</h5>
+            <p>Garantía de perfumes originales con certificado</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="feature-box">
+            <i class="bi bi-truck"></i>
+            <h5>Envío Rápido</h5>
+            <p>Entrega en 24-48 horas en Lima</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="feature-box">
+            <i class="bi bi-eyedropper"></i>
+            <h5>Muestras Gratis</h5>
+            <p>Prueba antes de decidir tu fragancia</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="feature-box">
+            <i class="bi bi-headset"></i>
+            <h5>Soporte 24/7</h5>
+            <p>Atención personalizada vía WhatsApp</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- =========================================
+     CATEGORÍAS VISUALES 
+     ========================================= -->
+<section class="categories-section py-5">
+  <div class="container-fluid px-0">
+    <div class="row g-0">
+      
+      <!-- Categoría 1: Para Él -->
+      <div class="col-lg-4 col-md-12">
+        <div class="category-panel">
+          <div class="category-image">
+            <!-- CAMBIAR IMAGEN: Coloca tu imagen aquí -->
+            <img src="img/Perfumes-1.jpg" alt="Para Él">
+          </div>
+          <div class="category-overlay"></div>
+          <div class="category-content">
+            <h3 class="category-title">PARA ÉL</h3>
+            <p class="category-subtitle">Fragancias masculinas premium</p>
+            <a href="/catalogo" class="category-btn">VER COLECCIÓN</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categoría 2: Para Ella -->
+      <div class="col-lg-4 col-md-12">
+        <div class="category-panel">
+          <div class="category-image">
+            <!-- CAMBIAR IMAGEN: Coloca tu imagen aquí -->
+            <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=800&q=80" alt="Para Ella">
+          </div>
+          <div class="category-overlay"></div>
+          <div class="category-content">
+            <h3 class="category-title">PARA ELLA</h3>
+            <p class="category-subtitle">Aromas femeninos exclusivos</p>
+            <a href="/catalogo" class="category-btn">VER COLECCIÓN</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categoría 3: Unisex -->
+      <div class="col-lg-4 col-md-12">
+        <div class="category-panel">
+          <div class="category-image">
+            <!-- CAMBIAR IMAGEN: Coloca tu imagen aquí -->
+            <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=800&q=80" alt="Unisex">
+          </div>
+          <div class="category-overlay"></div>
+          <div class="category-content">
+            <h3 class="category-title">UNISEX</h3>
+            <p class="category-subtitle">Fragancias para todos</p>
+            <a href="/catalogo" class="category-btn">VER COLECCIÓN</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <!-- =========================================
+       PRODUCTOS DESTACADOS
+       ========================================= -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">MÁS VENDIDOS</h2>
+        <div class="section-divider"></div>
+        <p class="text-muted mt-3">Las fragancias favoritas de nuestros clientes</p>
+      </div>
+      
+      <div class="row g-4">
+        <!-- Producto 1 -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card" 
+               data-id="1" 
+               data-name="Valentino Uomo Intense" 
+               data-price="450" 
+               data-image="img/Valentino Uomo.webp"
+               data-description="Fragancia elegante y sofisticada">
+            <div class="position-relative">
+              <span class="badge-sale">ON SALE 15%</span>
+              <img src="img/Valentino Uomo.webp" class="img-fluid" alt="Valentino">
+            </div>
+            <div class="product-info mt-3">
+              <p class="brand-name-small text-muted text-uppercase mb-1">Valentino</p>
+              <h5 class="product-name mb-2">Valentino Uomo Intense</h5>
+              <div class="mb-2">
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <span class="text-muted small ms-1">(5.0)</span>
+              </div>
+              <div class="price">
+                <span class="current-price text-danger fw-bold">S/. 382.50</span>
+                <span class="original-price text-muted text-decoration-line-through small ms-2">S/. 450</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 mt-3 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 2 -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card" 
+               data-id="2" 
+               data-name="Aroma Premium Collection" 
+               data-price="420" 
+               data-image="img/CAROLINA HERRERA GOOD GIRL.webp"
+               data-description="Intensidad y elegancia">
+            <div class="position-relative">
+              <span class="badge-sale">ON SALE 10%</span>
+              <img src="img/CAROLINA HERRERA GOOD GIRL.webp" class="img-fluid" alt="Aroma Premium">
+            </div>
+            <div class="product-info mt-3">
+              <p class="brand-name-small text-muted text-uppercase mb-1">Premium</p>
+              <h5 class="product-name mb-2">Aroma Premium Collection</h5>
+              <div class="price">
+                <span class="current-price text-danger fw-bold">S/. 378</span>
+                <span class="original-price text-muted text-decoration-line-through small ms-2">S/. 420</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 mt-3 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 3 -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card" 
+               data-id="3" 
+               data-name="9PM Night" 
+               data-price="380" 
+               data-image="img/JEAN PAUL GAULTIER LE MALE.webp"
+               data-description="Frescura nocturna">
+            <div class="position-relative">
+              <img src="img/JEAN PAUL GAULTIER LE MALE.webp" class="img-fluid" alt="9pm Night">
+            </div>
+            <div class="product-info mt-3">
+              <p class="brand-name-small text-muted text-uppercase mb-1">Azzaro</p>
+              <h5 class="product-name mb-2">9PM Night</h5>
+              <div class="price">
+                <span class="current-price fw-bold">S/. 380</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 mt-3 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 4 -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card" 
+               data-id="4" 
+               data-name="Mystic Essence" 
+               data-price="400" 
+               data-image="img/Xerjoff Erba Pura.webp"
+               data-description="Aroma místico">
+            <div class="position-relative">
+              <span class="badge-new">NEW</span>
+              <img src="img/Xerjoff Erba Pura.webp" class="img-fluid" alt="Mystic Essence">
+            </div>
+            <div class="product-info mt-3">
+              <p class="brand-name-small text-muted text-uppercase mb-1">Exclusive</p>
+              <h5 class="product-name mb-2">Mystic Essence</h5>
+              <div class="price">
+                <span class="current-price fw-bold">S/. 400</span>
+              </div>
+              <button class="btn btn-outline-dark w-100 mt-3 btn-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-5">
+        <a href="/catalogo" class="btn btn-outline-dark">VER TODO EL CATÁLOGO</a>
+      </div>
+    </div>
+  </section>
+
+<!-- =========================================
+     BANNER PROMOCIONAL DECANTS 
+     ========================================= -->
+<section class="decants-promo-section">
+  <div class="container-fluid px-0">
+    <div class="row g-0 align-items-center">
+      
+      <!-- Columna de Imagen -->
+      <div class="col-lg-6 p-0">
+        <div class="promo-image-wrapper">
+          <img src="img/Decants - 1.webp" alt="Decants de Perfumes" class="promo-image">
+          <div class="promo-image-overlay"></div>
+        </div>
+      </div>
+
+      <!-- Columna de Contenido -->
+      <div class="col-lg-6">
+        <div class="promo-content-wrapper">
+          <div class="promo-badge">
+            <i class="bi bi-droplet-fill me-2"></i>PRUEBA ANTES DE COMPRAR
+          </div>
+          <h2 class="promo-title">DECANTS DESDE <span class="text-gold">S/. 15</span></h2>
+          <p class="promo-text">
+            ¿No estás seguro de qué fragancia elegir? Prueba primero con nuestros decants y encuentra tu aroma perfecto antes de invertir en el frasco completo.
+          </p>
+          <ul class="promo-features">
+            <li><i class="bi bi-check-circle-fill me-2"></i>Muestras desde 2ml</li>
+            <li><i class="bi bi-check-circle-fill me-2"></i>Decants de 5ml a 10ml</li>
+            <li><i class="bi bi-check-circle-fill me-2"></i>100% perfumes originales</li>
+            <li><i class="bi bi-check-circle-fill me-2"></i>Atomizadores premium</li>
+          </ul>
+          <div class="promo-actions">
+            <a href="decants.html" class="btn btn-promo-primary">
+              EXPLORAR DECANTS <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+            <a href="/catalogo" class="btn btn-promo-secondary">
+              VER CATÁLOGO COMPLETO
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <!-- =========================================
+       FRAGRANCE NEWS / BLOG
+       ========================================= -->
+  <section class="news-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">FRAGRANCE NEWS</h2>
+        <div class="section-divider"></div>
+        <p class="text-muted mt-3">Tendencias, guías y novedades del mundo de la perfumería</p>
+      </div>
+      
+      <div class="row g-4">
+        <!-- Artículo 1 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="news-card">
+            <div class="news-image">
+              <img src="img/NOTICIA 1.webp" alt="Lumière d'Issey">
+            </div>
+            <div class="news-body">
+              <p class="news-category">Tendencias</p>
+              <h5>Lumière d'Issey: el arte de capturar lo intangible</h5>
+              <p>Un homenaje olfativo a la luz, la esperanza y el optimismo; así es la nueva fragancia de Issey Miyake Parfums.</p>
+              <a href="#" class="read-more">Leer Más</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Artículo 2 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="news-card">
+            <div class="news-image">
+              <img src="img/NOTICIA 2.webp" alt="Valentino Beauty">
+            </div>
+            <div class="news-body">
+              <p class="news-category">Guías</p>
+              <h5>Valentino Beauty presenta 'Born in Roma Purple Melancholia'</h5>
+              <p>La firma ofrece una activación urbana que invita a indagar en nuestros recuerdos y descubrir sus nuevas creaciones olfativas.</p>
+              <a href="#" class="read-more">Leer Más</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Artículo 3 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="news-card">
+            <div class="news-image">
+              <img src="img/NOTICIA 3.webp" alt="Ralph Lauren">
+            </div>
+            <div class="news-body">
+              <p class="news-category">Novedades</p>
+              <h5>Ralph Lauren Fragrances en el Mercado de las Flores</h5>
+              <p>Los visitantes pudieron descubrir una cuidada selección de sus perfumes más emblemáticos: Polo Blue, Polo Red y Polo 67.</p>
+              <a href="#" class="read-more">Leer Más</a>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div> 
+  </section> 
+
+  <!-- =========================================
+       TESTIMONIOS
+       ========================================= -->
+  <section class="py-5 border-top">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">LO QUE DICEN NUESTROS CLIENTES</h2>
+        <div class="section-divider"></div>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <p>"Excelente servicio y los perfumes son 100% originales. Compré Valentino y llegó en perfectas condiciones."</p>
+            <p class="author">MARÍA GARCÍA</p>
+            <p class="location">Miraflores, Lima</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <p>"Los decants son una genialidad. Pude probar 5 fragancias antes de comprar la que más me gustó. ¡100% recomendado!"</p>
+            <p class="author">CARLOS MENDOZA</p>
+            <p class="location">San Isidro, Lima</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+            <p>"Envío rapidísimo y el empaque es premium. Se nota que cuidan cada detalle. Ya es mi tienda de confianza."</p>
+            <p class="author">ANA RODRÍGUEZ</p>
+            <p class="location">Surco, Lima</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<footer class="luxury-footer">
+  <div class="container">
+    <div class="row">
+      
+      <!-- Columna 1: Marca y Descripción -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h5>MEDINA FRAGRANCES</h5>
+        <p>Curaduría exclusiva de perfumería original. Descubre el aroma perfecto que define tu esencia. Calidad y autenticidad garantizada en cada gota.</p>
+        <div class="social-icons mt-4">
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-tiktok"></i></a>
+          <a href="#"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- Columna 2: Enlaces Rápidos -->
+      <div class="col-lg-2 col-md-6 mb-4">
+        <h6>Explorar</h6>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="/catalogo">Catálogo</a></li>
+          <li><a href="decants.html">Decants</a></li>
+          <li><a href="marcas.html">Marcas</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Ayuda y Legal -->
+      <div class="col-lg-2 col-md-6 mb-4">
+        <h6>Ayuda</h6>
+        <ul>
+          <li><a href="contacto.html">Soporte</a></li>
+          <li><a href="privacidad.html">Política de Privacidad</a></li>
+          <li><a href="terminos.html">Términos y Condiciones</a></li>
+          <li><a href="#">Envíos y Devoluciones</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 4: Newsletter y Pagos -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h6>Newsletter</h6>
+        <p class="mb-3">Suscríbete para recibir ofertas exclusivas y novedades.</p>
+        <form>
+          <input type="email" class="newsletter-input" placeholder="Tu correo electrónico">
+          <button type="submit" class="btn-subscribe">Suscribirse</button>
+        </form>
+        
+        <div class="mt-4">
+          <h6 style="margin-bottom: 15px;">Pagos Seguros</h6>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge bg-light text-dark p-2">Visa</span>
+            <span class="badge bg-light text-dark p-2">Mastercard</span>
+            <span class="badge bg-light text-dark p-2">Yape</span>
+            <span class="badge bg-light text-dark p-2">Plin</span>
+            <span class="badge bg-light text-dark p-2">BCP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra de Copyright -->
+    <div class="row copyright-bar align-items-center">
+      <div class="col-md-6 text-center text-md-start">
+        &copy; 2026 Medina Fragrances. Todos los derechos reservados.
+      </div>
+      <div class="col-md-6 text-center text-md-end">
+        <i class="bi bi-shield-lock-fill me-1"></i> Compra 100% Segura y Encriptada
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <!-- =========================================
+       OFFCANVAS DEL CARRITO
+       ========================================= -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title fw-bold" id="cartOffcanvasLabel">
+        TU CARRITO (<span class="cart-count-text">0</span>)
+      </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    
+    <div class="offcanvas-body d-flex flex-column p-0">
+      <div id="offcanvas-cart-items" class="flex-grow-1 overflow-auto p-3">
+        <div class="text-center py-5 text-muted">
+          <i class="bi bi-bag-x display-4 d-block mb-3"></i>
+          <p class="mb-0">Tu carrito está vacío</p>
+          <small>Agrega productos del catálogo</small>
+        </div>
+      </div>
+
+      <div class="border-top p-3 bg-light" id="offcanvas-cart-summary" style="display: none;">
+        <div class="mb-2">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="text-muted">Subtotal</span>
+            <span class="fw-bold" id="offcanvas-subtotal">S/. 0.00</span>
+          </div>
+          <div class="d-flex justify-content-between mb-1">
+            <span class="text-muted">Envío</span>
+            <span class="text-success fw-bold" id="offcanvas-shipping">GRATIS</span>
+          </div>
+          <small class="text-muted d-block mb-3" id="offcanvas-shipping-msg">
+            ¡Envío gratis en compras mayores a S/. 350!
+          </small>
+        </div>
+        
+        <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+          <span class="fw-bold fs-5">Total</span>
+          <span class="fw-bold fs-5 text-danger" id="offcanvas-total">S/. 0.00</span>
+        </div>
+        
+        <button class="btn btn-dark w-100 mb-2 py-3 fw-bold" onclick="proceedToCheckout()">
+          <i class="bi bi-lock me-2"></i>PROCEDER AL PAGO
+        </button>
+        
+        <a href="carrito.html" class="text-center d-block text-decoration-none small text-muted">
+          Ver carrito completo →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="main/main.js"></script>
+</body>
+</html>
