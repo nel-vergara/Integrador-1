@@ -30,19 +30,24 @@ public class AppUserService implements UserDetailsService {
         Usuario usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + email));
 
+        // Valida texto plano y auto-encripta en caso de registros crudos en BD
         if (!esPasswordBCrypt(usuario.getPassword())) {
-            usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+            String passwordEncriptada = passwordEncoder.encode(usuario.getPassword());
+            usuario.setPassword(passwordEncriptada);
             usuarioRepository.save(usuario);
         }
+
+        // Se inyecta obligatoriamente el prefijo "ROLE_" para coincidir con .hasRole("ADMIN")
+        String rolConPrefijo = usuario.getRol().startsWith("ROLE_") ? usuario.getRol() : "ROLE_" + usuario.getRol();
 
         return new User(
                 usuario.getEmail(),
                 usuario.getPassword(),
-                List.of(new SimpleGrantedAuthority("ROLE_" + usuario.getRol()))
+                List.of(new SimpleGrantedAuthority(rolConPrefijo))
         );
     }
 
     private boolean esPasswordBCrypt(String password) {
-        return password != null && (password.startsWith("$2a$") || password.startsWith("$2b$") || password.startsWith("$2y$"));
+        return password != null && (password.startsWith("$2a$") || password.startsWith("$2b$") || password.startsWith("$2y$")) && password.length() == 60;
     }
 }

@@ -7,11 +7,11 @@ import com.medina.fragrances.fragrance_app.service.ContactoService;
 import com.medina.fragrances.fragrance_app.service.PedidoService;
 import com.medina.fragrances.fragrance_app.service.ProductoService;
 import com.medina.fragrances.fragrance_app.service.UsuarioService;
+import com.medina.fragrances.fragrance_app.service.ProductoExcelService;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,15 +19,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.medina.fragrances.fragrance_app.service.ProductoExcelService;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.io.IOException;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +28,7 @@ import java.util.Map;
 @Controller
 public class AdminController {
 
-   private final ProductoService productoService;
+    private final ProductoService productoService;
     private final PedidoService pedidoService;
     private final UsuarioService usuarioService;
     private final ContactoService contactoService;
@@ -54,14 +47,11 @@ public class AdminController {
     }
 
     @GetMapping("/admin/productos/exportar")
-public void exportarExcel(HttpServletResponse response) throws IOException {
-    // 1. Configuramos la respuesta HTTP para descargar un archivo
-    response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-    response.setHeader("Content-Disposition", "attachment; filename=productos.xlsx");
-
-    // 2. Llamamos al método del servicio pasando la respuesta
-    productoExcelService.generarExcel(response);
-}
+    public void exportarExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=productos.xlsx");
+        productoExcelService.generarExcel(response);
+    }
 
     @GetMapping("/admin")
     public String dashboard(@RequestParam(value = "editarProducto", required = false) Integer editarProducto,
@@ -184,39 +174,25 @@ public void exportarExcel(HttpServletResponse response) throws IOException {
         admin.setRol("ADMIN");
         usuarioService.guardar(admin);
 
+        // Se completó la lógica de sesión cortada
         session.setAttribute("usuarioId", admin.getId());
         session.setAttribute("nombreUsuario", admin.getNombre());
-        session.setAttribute("rolUsuario", "ADMIN");
-        session.setAttribute("adminAutenticado", true);
-        return "redirect:/admin#configuracion";
+        session.setAttribute("rolUsuario", admin.getRol());
+        
+        return "redirect:/admin#perfil";
     }
 
+    // Métodos auxiliares de validación de sesión
     private boolean esAdmin(HttpSession session) {
-        if (Boolean.TRUE.equals(session.getAttribute("adminAutenticado"))
-                && "ADMIN".equals(session.getAttribute("rolUsuario"))) {
-            return true;
-        }
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication != null
-                && authentication.isAuthenticated()
-                && authentication.getAuthorities().stream()
-                .anyMatch(authority -> "ROLE_ADMIN".equals(authority.getAuthority()));
+        String rol = (String) session.getAttribute("rolUsuario");
+        return "ADMIN".equals(rol);
     }
 
     private Usuario obtenerAdminActual(HttpSession session) {
-        Object id = session.getAttribute("usuarioId");
-        if (id instanceof Integer adminId) {
-            return usuarioService.buscarPorId(adminId)
-                    .orElse(usuarioService.asegurarAdminPrincipal());
+        Integer id = (Integer) session.getAttribute("usuarioId");
+        if (id != null) {
+            return usuarioService.buscarPorId(id).orElse(usuarioService.asegurarAdminPrincipal());
         }
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName())) {
-            return usuarioService.buscarPorEmail(authentication.getName())
-                    .orElse(usuarioService.asegurarAdminPrincipal());
-        }
-
         return usuarioService.asegurarAdminPrincipal();
     }
 }

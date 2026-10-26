@@ -26,6 +26,14 @@ SELECT 'Grace Galán', 'mindsgraceluu@gmail.com', 'Ariana18.', '952729036', '732
 WHERE NOT EXISTS (
   SELECT 1 FROM usuario WHERE email = 'mindsgraceluu@gmail.com' OR dni = '73203436'
 );
+-- Usuario Administrador "Nel" con clave fácil "123456"
+INSERT INTO usuario (nombre, email, password, rol) 
+VALUES (
+  'Nel', 
+  'nel@fragrance.com', 
+  '123456', 
+  'ADMIN'
+);
 
 CREATE TABLE IF NOT EXISTS producto (
   id INT NOT NULL AUTO_INCREMENT,

@@ -40,71 +40,71 @@ public class SecurityConfig {
     }
 
     @Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                               DaoAuthenticationProvider authenticationProvider,
-                                               AuthenticationSuccessHandler authenticationSuccessHandler,
-                                               LogoutSuccessHandler logoutSuccessHandler) throws Exception {
-    return http
-            .authenticationProvider(authenticationProvider)
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                    .requestMatchers(
-                            "/",
-                            "/index.html",
-                            "/admin/productos/exportar", // <-- AÑADIDO AQUÍ: Acceso libre para cualquier usuario
-                            "/catalogo/**",
-                            "/catalogo.html",
-                            "/catalogo-dinamico",
-                            "/catalogo-estatico",
-                            "/marcas",
-                            "/marcas.html",
-                            "/decants",
-                            "/decants.html",
-                            "/contacto",
-                            "/contacto.html",
-                            "/contacto/enviar",
-                            "/registro",
-                            "/login",
-                            "/auth/registrar",
-                            "/api/auth/**",
-                            "/privacidad",
-                            "/privacidad.html",
-                            "/terminos",
-                            "/terminos.html",
-                            "/css/**",
-                            "/img/**",
-                            "/main/**",
-                            "/h2-console/**"
-                    ).permitAll()
-                    .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/productos/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.PUT, "/api/productos/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE, "/api/productos/**").hasRole("ADMIN")
-                    .requestMatchers("/admin/**").hasRole("ADMIN")
-                    .requestMatchers("/checkout/**").hasAnyRole("CLIENTE", "ADMIN")
-                    .requestMatchers("/carrito", "/carrito.html").hasAnyRole("CLIENTE", "ADMIN")
-                    .anyRequest().authenticated()
-            )
-            .formLogin(login -> login
-                    .loginPage("/login")
-                    .loginProcessingUrl("/auth/ingresar")
-                    .usernameParameter("email")
-                    .passwordParameter("password")
-                    .successHandler(authenticationSuccessHandler)
-                    .failureUrl("/login?error=true")
-                    .permitAll()
-            )
-            .logout(logout -> logout
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/cerrar-sesion", "GET"))
-                    .logoutSuccessHandler(logoutSuccessHandler)
-                    .invalidateHttpSession(true)
-                    .clearAuthentication(true)
-                    .permitAll()
-            )
-            .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
-            .build();
-}
+    public SecurityFilterChain securityFilterChain(HttpSecurity http,
+                                                   DaoAuthenticationProvider authenticationProvider,
+                                                   AuthenticationSuccessHandler authenticationSuccessHandler,
+                                                   LogoutSuccessHandler logoutSuccessHandler) throws Exception {
+        return http
+                .authenticationProvider(authenticationProvider)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/",
+                                "/index.html",
+                                "/admin/productos/exportar",
+                                "/catalogo/**",
+                                "/catalogo.html",
+                                "/catalogo-dinamico",
+                                "/catalogo-estatico",
+                                "/marcas",
+                                "/marcas.html",
+                                "/decants",
+                                "/decants.html",
+                                "/contacto",
+                                "/contacto.html",
+                                "/contacto/enviar",
+                                "/registro",
+                                "/login",
+                                "/auth/registrar",
+                                "/api/auth/**",
+                                "/privacidad",
+                                "/privacidad.html",
+                                "/terminos",
+                                "/terminos.html",
+                                "/css/**",
+                                "/img/**",
+                                "/main/**",
+                                "/h2-console/**"
+                        ).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/productos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/productos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/productos/**").hasRole("ADMIN")
+                        .requestMatchers("/checkout/**").hasAnyRole("CLIENTE", "ADMIN")
+                        .requestMatchers("/carrito", "/carrito.html").hasAnyRole("CLIENTE", "ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .formLogin(login -> login
+                        .loginPage("/login")
+                        .loginProcessingUrl("/auth/ingresar")
+                        .usernameParameter("email")
+                        .passwordParameter("password")
+                        .successHandler(authenticationSuccessHandler)
+                        .failureUrl("/login?error=true")
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/cerrar-sesion", "GET"))
+                        .logoutSuccessHandler(logoutSuccessHandler)
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .permitAll()
+                )
+                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
+                .build();
+    }
 
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler(UsuarioRepository usuarioRepository) {
